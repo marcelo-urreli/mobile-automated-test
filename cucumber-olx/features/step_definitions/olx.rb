@@ -1,21 +1,7 @@
 
-Given(/^I go to Home page$/) do
-	@browser.goto $URL
-	@browser.cookies.add 'downApp', 'downApp', :path => "/"
-end
-
-
 When(/^I go to My Olx$/) do
 	@browser.link(:href, '/auth/login').when_present.click
 end
-
-
-And(/^I complete login information$/) do
-	@browser.text_field(:name, 'login[username]').set 'damianb@olx.com'
-	@browser.text_field(:name, 'login[password]').set 'dami21'
-	@browser.button(:name, 'submit').click
-end
-
 
 
 Then(/^I should be logged in$/) do
@@ -23,24 +9,8 @@ Then(/^I should be logged in$/) do
 end
 
 
-
 When(/^I click on Post button$/) do
   @browser.link(:href, '/item/post/category').when_present.click
-end
-
-
-When(/^I choose Capital Federal$/) do
-  @browser.link(:href, '/item/post/category?state=capitalfederal-gba.olx.com.ar&city=capitalfederal.olx.com.ar').click
-end
-
-
-When(/^I choose Telefonos \- Tablets category$/) do
-  @browser.link(:href, '/item/post/subcategory/830').when_present.click
-end
-
-
-When(/^I choose Telefonos \- Celulares$/) do
-  @browser.link(:href, '/item/post/info/831').when_present.click
 end
 
 

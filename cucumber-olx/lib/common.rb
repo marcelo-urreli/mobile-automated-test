@@ -14,18 +14,49 @@ end
 
 # Login to My OLX
 
-
-Given /^I log in with a username "(.+)" and password "(.+)"$/ do |username, password|
-	@browser.goto #{environment}
+Given(/^I go to Home page$/) do
+	@browser.goto 'http://m.olx.com.ar'
 	@browser.cookies.add 'downApp', 'downApp', :path => "/"
+end
+
+When(/^I log in with username "(.+)" and password "(.+)"$/) do |username, password|
 	@browser.link(:href, '/auth/login').when_present.click
 	@browser.text_field(:name, 'login[username]').set username
 	@browser.text_field(:name, 'login[password]').set password
 	@browser.button(:name, 'submit').click
-	@browser.text.should include('Mi OLX')
 end
 
 
+
+# Cities - Categories - Subcategories access
+
+
+When /^I choose "(.+)" city$/ do |city|
+  @browser.link(:text, city).click
+end
+
+
+When /^I choose "(.+)" category$/ do |category|
+  @browser.link(:text, category).click
+end
+
+When /^I choose "(.+)" subcategory$/ do |subcategory|
+  @browser.link(:text, subcategory).click
+end
+
+
+# Fill fields
+
+When /^I fill out the form with the following attributes:$/ do |table|
+  puts table.rows_hash
+  criteria = table.rows_hash.each do |field, value|
+    fill_in field, :with => value
+  end
+end
+
+And /^ I press submit button$/ do
+	@browser.button(:name, 'submit').click
+end
 
 #And /^I log out$/ do
 #  begin
@@ -36,15 +67,4 @@ end
 #end	
 
 
-######  Global Variables
 
-# Config
-
-
-# Countries
-
-$URL='http://m.olx.com.ar'
-
-$arg_url='http://m.olx.com.ar'
-$india_url='http://m.olx.in'
-za_url='http://m.olx.co.za'
