@@ -1,7 +1,6 @@
 
-
 Given(/^I go to Home page$/) do
-	@browser.goto 'http://m.olx.com.ar/force/html4'
+	@browser.goto $URL
 	@browser.cookies.add 'downApp', 'downApp', :path => "/"
 end
 
@@ -21,7 +20,6 @@ end
 
 Then(/^I should be logged in$/) do
 	@browser.text.should include('Mi OLX')
-	@browser.close
 end
 
 
