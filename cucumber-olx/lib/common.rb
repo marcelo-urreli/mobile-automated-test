@@ -1,3 +1,4 @@
+require 'configure'
 
 # Common steps
 
@@ -14,8 +15,10 @@ end
 
 # Login to My OLX
 Given /^I go to Home page$/ do
-	@browser.goto URL
-	@browser.cookies.add 'downApp', 'downApp', :path => "/"
+  if @browser.url != URL
+    @browser.goto URL
+  	@browser.cookies.add 'downApp', 'downApp', :path => "/"
+  end
 end
 
 When /^I log in with username "(.+)" and password "(.+)"$/ do |username, password|
@@ -24,7 +27,6 @@ When /^I log in with username "(.+)" and password "(.+)"$/ do |username, passwor
 	@browser.text_field(:name, 'login[password]').set password
 	@browser.button(:name, 'submit').click
 end
-
 
 Then /^I should be logged in$/ do
   @browser.text.should include('Mi OLX')
@@ -55,6 +57,7 @@ When /^I fill out the form with the following data:$/ do |text_fields|
   end
 end
 
+
 # Button actions
 And /^I press submit button$/ do
 	@browser.button(:name, 'submit').click
@@ -69,6 +72,7 @@ end
 #    raise("#{@browser.browser_type_and_version}: Failed to logout")
 #  end
 #end	
+
 
 
 

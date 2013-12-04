@@ -8,6 +8,8 @@ Before do
 	# Mobile Devices
 	driver = Webdriver::UserAgent.driver(:browser => :firefox, :agent => :ipad, :orientation => :landscape)
 	@browser = Watir::Browser.new driver
+	@browser.goto URL
+	@browser.cookies.add 'downApp', 'downApp', :path => "/"
 
 	# Web Browser
 	#@browser=Watir::Browser.new :firefox, :profile => 'default'
