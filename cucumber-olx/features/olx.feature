@@ -1,10 +1,10 @@
 Feature: Go to Home page
 
-# Scenario: Enter to My OLX
-#    Given I go to Home page
-#      When I go to My Olx
-#      When I log in with username "damianb@olx.com" and password "dami21"
-#    Then I should be logged in
+ Scenario: Enter to My OLX
+    Given I go to Home page
+      When I go to My Olx
+      When I log in with username "damianb@olx.com" and password "dami21"
+    Then I should be logged in
 
   Scenario: Post an item
     Given I go to Home page
@@ -26,4 +26,9 @@ Feature: Go to Home page
 #  Scenario: Check user agent
 #    Given I go to whatsmyuseragent page
 
+
+#	Scenario: Change location
+#		Given I located in "Argentina"
+#		 When I change my location to "India"
+#		Then I should be located on "India"
 
