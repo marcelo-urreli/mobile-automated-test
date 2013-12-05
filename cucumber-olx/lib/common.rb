@@ -32,6 +32,21 @@ Then /^I should be logged in$/ do
   @browser.text.should include('Mi OLX')
 end
 
+# Logout
+Given(/^I am logged in$/) do
+  pending # express the regexp above with the code you wish you had
+end
+
+When(/^I click "(.*?)" button$/) do |arg1|
+  pending # express the regexp above with the code you wish you had
+end
+
+Then(/^I should be logged out$/) do
+  pending # express the regexp above with the code you wish you had
+end
+
+
+
 
 
 # Cities - Categories - Subcategories access
@@ -65,13 +80,13 @@ end
 
 
 
-#And /^I log out$/ do
-#  begin
-#    Core::Login_Page.logout(@browser, @config)
-#  rescue
-#    raise("#{@browser.browser_type_and_version}: Failed to logout")
-#  end
-#end	
+And /^I log out$/ do
+ if @browser.link(:class, 'sign-out').exist? == true
+  @browser.link(:class, 'sign-out').when_present.click
+ else
+  return false
+ end
+end
 
 
 
