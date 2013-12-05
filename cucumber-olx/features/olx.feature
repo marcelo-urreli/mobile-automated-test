@@ -6,7 +6,12 @@ Feature: Go to Home page
       When I log in with username "damianb@olx.com" and password "dami21"
     Then I should be logged in
 
-   	Scenario: Register new user
+    Scenario: Logout from My OLX
+     Given I am logged in
+      When I click logout button
+     Then I should be logged out
+
+	Scenario: Register new user
 	 Given I go to register page
 		 When I fill out the post form with valid data
 			And I press submit button

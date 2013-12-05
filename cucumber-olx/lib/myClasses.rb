@@ -1,7 +1,7 @@
 require 'rubygems'
 #require 'cucumber'
 #require 'rspec/expectations'
-#require 'headless'
+require 'headless'
 #require 'rspec'
 #require 'json'
 require 'watir-webdriver'

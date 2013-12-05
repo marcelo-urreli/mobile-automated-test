@@ -17,7 +17,6 @@ end
 Given /^I go to Home page$/ do
   if @browser.url != URL
     @browser.goto URL
-  	@browser.cookies.add 'downApp', 'downApp', :path => "/"
   end
 end
 
@@ -32,17 +31,25 @@ Then /^I should be logged in$/ do
   @browser.text.should include('Mi OLX')
 end
 
-# Logout
-Given(/^I am logged in$/) do
-  pending # express the regexp above with the code you wish you had
+
+#Logout
+Given /^I am logged in$/ do
+  if @browser.link(:href, '/auth/login').exists?
+      steps %Q{
+      Given I go to Home page
+      When I go to My Olx
+      When I log in with username "damianb@olx.com" and password "dami21"
+      Then I should be logged in
+      }
+  end
 end
 
-When(/^I click "(.*?)" button$/) do |arg1|
-  pending # express the regexp above with the code you wish you had
+When /^I click logout button$/ do
+  @browser.link(:href, /user\/logout/).click
 end
 
 Then(/^I should be logged out$/) do
-  pending # express the regexp above with the code you wish you had
+  @browser.link(:href, /auth\/login/).exists? == true
 end
 
 
