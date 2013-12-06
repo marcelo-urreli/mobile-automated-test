@@ -2,8 +2,8 @@ require 'configure'
 
 # Common steps
 
-# UI Validation
 
+# UI Validation
 Then /^I should see "(.+)" text$/ do |search_string|
   @browser.text.include?(search_string).should == true
 end
