@@ -1,4 +1,5 @@
 
+
 When(/^I go to My Olx$/) do
 	@browser.link(:href, '/auth/login').when_present.click
 end
@@ -23,13 +24,13 @@ end
 Given /^I am located in "(.*?)" country and "(.*?)" city$/ do |country, city|
   case country
     when 'Argentina'
-      @browser.goto 'http://m.olx.com.ar'
+      @browser.goto $argentina_url
     when 'Brasil'
-      @browser.goto brasil_url
+      @browser.goto $brasil_url
     when 'South Africa'
-      @browser.goto za_url
+      @browser.goto $za_url
     when 'India'
-      @browser.goto india_url
+      @browser.goto $india_url
     else 
       return false
   end
@@ -69,4 +70,66 @@ end
 
 Then(/^I should be registered sucessfully$/) do
   @browser.text.should include('Mi OLX')
+end
+
+
+
+And /^I pick an existing ad$/ do
+  if @browser.url != $URL
+   @browser.goto $URL
+  end
+  @browser.text_field(:id, 'searchField').set "Blackberry 8520 - Testing"
+  @browser.button(:type, 'submit').click
+  @browser.link(:href, '/item/show/559384350').click
+end
+
+
+
+And /^I reply with a new message$/ do
+  @browser.link(:href, '/item/reply/559384350').when_present.click
+  %Q{
+    When I fill out the form with the following data:
+        | name               | value                               |
+        | replytoad[email]   | automatedtesting01@olx.com          |
+        | replytoad[name]    | Automated Replier                   |
+        | replytoad[phone]   | 1532340200                          |
+        | replytoad[message] | This is automatic reply for testing |
+    }
+  @browser.button(:name, 'submit').click
+end
+
+Then /^I should see that message was received$/ do
+  @browser.div(:class, 'reply_to_ad_success').exists?
+end
+
+
+When /^I search for "(.*?)" in Home page$/ do |search_item|
+  @browser.text_field(:id, 'searchField').set search_item
+  @browser.button(:type, 'submit').click
+
+  uri = URI.parse('http://api-v2.olx.com/items?location=www.olx.com.ar&categoryId=%22%22&searchTerm=' + search_item + '&pageSize=20&offset=0')
+   
+  http = Net::HTTP.new(uri.host, uri.port)
+  request = Net::HTTP::Get.new(uri.request_uri)
+   
+  response = http.request(request)
+   
+    if response.code == "200"
+      result = JSON.parse(response.body)
+      data = result["data"]
+      data.each do |section|
+        if (@browser.link(:href, '/item/show/' + section["id"].to_s).exists? == true) && (@browser.h3(:text, section["title"].to_s).exists? == true)
+          puts 'Item ID: ' + section["id"].to_s + ' with title ' + section["title"].to_s + ' exists'  
+        end    
+      end
+    else
+      puts 'ERROR!!!'
+    end
+
+end
+
+
+
+Then(/^I should see all results$/) do
+  puts 'Hola!'
 end

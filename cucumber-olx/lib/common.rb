@@ -15,8 +15,8 @@ end
 
 # Login to My OLX
 Given /^I go to Home page$/ do
-  if @browser.url != URL
-    @browser.goto URL
+  if @browser.url != $URL
+    @browser.goto $URL
   end
 end
 

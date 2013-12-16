@@ -1,7 +1,7 @@
 Before do
 	# Headless
-	@headless = Headless.new
-	@headless.start
+	#@headless = Headless.new
+	#@headless.start
 
 	# Mobile Devices
 	driver = Webdriver::UserAgent.driver(:browser => :firefox, :agent => :ipad, :orientation => :landscape)
@@ -15,12 +15,12 @@ Before do
 	#profile['general.useragent.override'] = 'Nokia9210/2.0 Symbian-Crystal/6.1 Nokia/2.1'
 	#@browser = Watir::Browser.new :firefox, :profile => profile
 	
-	@browser.goto URL
+	@browser.goto $URL
 	@browser.cookies.clear
 	@browser.cookies.add 'downApp', 'downApp', :path => "/"
 	end
 
 After do
 	@browser.close
-	@headless.destroy
+	#@headless.destroy
 end
