@@ -1,7 +1,7 @@
 Before do
 	# Headless
-	#@headless = Headless.new
-	#@headless.start
+	@headless = Headless.new
+	@headless.start
 
 	# Mobile Devices
 	driver = Webdriver::UserAgent.driver(:browser => :firefox, :agent => :ipad, :orientation => :landscape)
@@ -22,5 +22,5 @@ Before do
 
 After do
 	@browser.close
-	#@headless.destroy
+	@headless.destroy
 end
