@@ -7,6 +7,7 @@ $india_url = 'http://m.olx.in'
 $za_url = 'http://m.olx.co.za'
 $brasil_url = 'http://m.olx.com.br'
 
+$current_country = $argentina_url
 
 #Render versions
 wap = '/force/wap'
@@ -15,7 +16,7 @@ html5 = '/force/html5'
 
 
 $forceRender = $html4
-$URL = $argentina_url + $forceRender
+$URL = $current_country + $forceRender
 
 
 #Users
@@ -24,5 +25,4 @@ $username_password ='dami21'
 
 
 #Posting elements
-
 $reply_ad = '/item/show/559384350'

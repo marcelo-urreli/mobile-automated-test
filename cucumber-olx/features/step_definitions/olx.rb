@@ -101,35 +101,3 @@ end
 Then /^I should see that message was received$/ do
   @browser.div(:class, 'reply_to_ad_success').exists?
 end
-
-
-When /^I search for "(.*?)" in Home page$/ do |search_item|
-  @browser.text_field(:id, 'searchField').set search_item
-  @browser.button(:type, 'submit').click
-
-  uri = URI.parse('http://api-v2.olx.com/items?location=www.olx.com.ar&categoryId=%22%22&searchTerm=' + search_item + '&pageSize=20&offset=0')
-   
-  http = Net::HTTP.new(uri.host, uri.port)
-  request = Net::HTTP::Get.new(uri.request_uri)
-   
-  response = http.request(request)
-   
-    if response.code == "200"
-      result = JSON.parse(response.body)
-      data = result["data"]
-      data.each do |section|
-        if (@browser.link(:href, '/item/show/' + section["id"].to_s).exists? == true) && (@browser.h3(:text, section["title"].to_s).exists? == true)
-          puts 'Item ID: ' + section["id"].to_s + ' with title ' + section["title"].to_s + ' exists'  
-        end    
-      end
-    else
-      puts 'ERROR!!!'
-    end
-
-end
-
-
-
-Then(/^I should see all results$/) do
-  puts 'Hola!'
-end
