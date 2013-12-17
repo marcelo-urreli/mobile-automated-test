@@ -1,4 +1,4 @@
-Feature: As a User i want to perform a search in order to find items
+Feature: As a user I want to perform a search in order to find items
 
 	Scenario: Search from HOME page
 	  Given I go to Home page
